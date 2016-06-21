@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="input-field col s10 offset-s1">
+        <input type="text" id="bucket_type" data-bind="value: bucket_type" />
+        <label for="bucket_type">Bucket type</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12">
+        <table class="table bordered striped centered responsive-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Number of Replicas</th>
+                    <th>Concurrent updates</th>
+                    <th>Ignore history</th>
+                    <th>R, W, DW, RW</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody data-bind="foreach: buckets">
+                <tr>
+                    <td data-bind="text: $data.name"></td>
+                    <td data-bind="text: $data.n_val"></td>
+                    <td>
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" disabled data-bind="checked: $data.allow_mult" />
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" disabled data-bind="checked: $data.last_write_wins" />
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="chip" data-bind="text: 'R:' + $data.r"></div>
+                        <div class="chip" data-bind="text: 'W:' + $data.w"></div>
+                        <div class="chip" data-bind="text: 'DW:' + $data.dw"></div>
+                        <div class="chip" data-bind="text: 'RW:' + $data.rw"></div>
+                    </td>
+                    <td>
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" data-bind="checked: $data.show_keys" />
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-bind="visible: $data.show_keys">
+                    <td colspan="6">
+                        <item-list params="bucket_type: $data.bucket_type, bucket: $data.name"></item-list>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+{
+  "name": "riakweb",
+  "version": "0.0.1",
+  "authors": [
+    "David Delassus <david.jose.delassus@gmail.com>"
+  ],
+  "description": "Web Interface for Riak",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "riak"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/linkdd/riakweb.git",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "~2.2.0",
+    "knockout": "~3.4.0",
+    "jquery": "~3.0.0",
+    "text": "requirejs-text#~2.0.15",
+    "require-css": "~0.1.8",
+    "sammy": "~0.7.6",
+    "Materialize": "materialize#~0.97.6"
+  }
+}

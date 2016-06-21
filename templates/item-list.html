@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-content">
+        <table class="table bordered highlight responsive-table">
+            <thead>
+                <tr>
+                    <th style="text-align: left;">Key</th>
+                    <th style="text-align: right;">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody data-bind="foreach: currentPageItems">
+                <tr>
+                    <td style="text-align: left;" data-bind="text: $data"></td>
+                    <td style="text-align: right;">...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-action">
+        Page:
+        <input type="number" data-bind="value: currentPage" />
+        /
+        <span data-bind="text: pages"></span>
+        |
+        Items per page:
+        <input type="number" data-bind="value: itemPerPage" />
+    </div>
+</div>
