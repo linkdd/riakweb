@@ -3,6 +3,7 @@ require.config({
         jquery: 'bower_components/jquery/dist/jquery.min',
         ko: 'bower_components/knockout/dist/knockout',
         sammy: 'bower_components/sammy/lib/sammy',
+        hammerjs: 'bower_components/Materialize/js/hammer.min',
         materialize: 'bower_components/Materialize/dist/js/materialize.min',
         text: 'bower_components/text/text'
     },
@@ -12,6 +13,9 @@ require.config({
         }
     },
     shim: {
+        jquery: {
+            exports: '$'
+        },
         ko: {
             exports: 'ko'
         },
@@ -23,7 +27,10 @@ require.config({
         },
         materialize: {
             deps: [
-                'css!bower_components/Materialize/dist/css/materialize.min.css'
+                'jquery',
+                'hammerjs',
+                'css!bower_components/Materialize/dist/css/materialize.min.css',
+                'css!stylesheets/material-icons.css'
             ]
         }
     }

@@ -1,5 +1,5 @@
 define([
-    'components/addr-config',
+    'components/riak-config',
     'components/bucket-list',
     'components/item-list'
 ], function() {

@@ -1,9 +1,9 @@
 define([
     'jquery',
     'ko',
-    'text!templates/addr-config.html'
-], function($, ko, AddrConfigTemplate) {
-    var AddrConfigViewModel = function(app) {
+    'text!templates/riak-config.html'
+], function($, ko, RiakConfigTemplate) {
+    var RiakConfigViewModel = function(app) {
         var self = this;
 
         self.app = app;
@@ -11,11 +11,11 @@ define([
     };
 
     return {
-        name: 'addr-config',
+        name: 'riak-config',
         cls: function(app) {
-            this.template = AddrConfigTemplate;
+            this.template = RiakConfigTemplate;
             this.viewModel = function() {
-                return new AddrConfigViewModel(app);
+                return new RiakConfigViewModel(app);
             };
         }
     };

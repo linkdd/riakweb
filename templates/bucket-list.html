@@ -1,65 +1,191 @@
 <div class="row">
-    <div class="input-field col s10 offset-s1">
-        <input type="text" id="bucket_type" data-bind="value: bucket_type" />
-        <label for="bucket_type">Bucket type</label>
+    <div class="col s3">
+        <div class="card">
+            <div class="card-content">
+                <div class="input-field">
+                    <input type="text" id="bucket_type" data-bind="value: bucket_type" />
+                    <label for="bucket_type">Bucket type</label>
+                </div>
+            </div>
+            <div class="card-action">
+                <button class="btn waves-effect waves-light" data-bind="click: newKey">
+                    <i class="material-icons left">add</i>
+                    Add key
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s9">
+        <div class="card">
+            <div class="card-content">
+                <table class="table bordered striped centered responsive-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Number of Replicas</th>
+                            <th>Concurrent updates</th>
+                            <th>Ignore history</th>
+                            <th>R, W, DW, RW</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody data-bind="foreach: buckets">
+                        <tr>
+                            <td data-bind="text: $data.name"></td>
+                            <td data-bind="text: $data.n_val"></td>
+                            <td>
+                                <div class="switch">
+                                    <label>
+                                        <input type="checkbox" disabled data-bind="checked: $data.allow_mult" />
+                                        <span class="lever"></span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="switch">
+                                    <label>
+                                        <input type="checkbox" disabled data-bind="checked: $data.last_write_wins" />
+                                        <span class="lever"></span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="chip" data-bind="text: 'R:' + $data.r"></div>
+                                <div class="chip" data-bind="text: 'W:' + $data.w"></div>
+                                <div class="chip" data-bind="text: 'DW:' + $data.dw"></div>
+                                <div class="chip" data-bind="text: 'RW:' + $data.rw"></div>
+                            </td>
+                            <td>
+                                <button class="btn waves-effect waves-light" data-bind="click: $data.editBucket">
+                                    Edit
+                                    <i class="material-icons right">mode_edit</i>
+                                </button>
+
+                                <div class="switch">
+                                    <label>
+                                        <input type="checkbox" data-bind="checked: $data.show_keys" />
+                                        <span class="lever"></span>
+                                        Detail
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-bind="visible: $data.show_keys">
+                            <td colspan="6">
+                                <item-list params="bucket_type: $data.bucket_type, bucket: $data.name"></item-list>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col s12">
-        <table class="table bordered striped centered responsive-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Number of Replicas</th>
-                    <th>Concurrent updates</th>
-                    <th>Ignore history</th>
-                    <th>R, W, DW, RW</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
+<div id="new-key" class="modal bottom-sheet">
+    <div class="modal-content">
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="text" data-bind="value: newkey.bucket" id="newkey_bucket" />
+                        <label for="newkey_bucket">Bucket name</label>
+                    </div>
 
-            <tbody data-bind="foreach: buckets">
-                <tr>
-                    <td data-bind="text: $data.name"></td>
-                    <td data-bind="text: $data.n_val"></td>
-                    <td>
+                    <div class="input-field col s6">
+                        <input type="text" data-bind="value: newkey.key" id="newkey_key" />
+                        <label for="newkey_key">Key (optional)</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <textarea id="newkey_content" data-bind="text: newkey.value" class="materialize-textarea"></textarea>
+                    <label for="newkey_value">Value</label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="pull-right">
+            <button class="btn waves-effect waves-light" data-bind="click: saveKey">
+                Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="edited-bucket" class="modal bottom-sheet">
+    <div class="modal-content">
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" data-bind="value: editedbucket.name" id="editedbucket_name" />
+                        <label for="editedbucket_name">Bucket Name</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s4">
+                        <input type="number" data-bind="value: editedbucket.n_val" id="editedbucket_n_val" />
+                        <label for="editedbucket_n_val">Number of replicas for objects in this bucket</label>
+                    </div>
+
+                    <div class="input-field col s4">
                         <div class="switch">
                             <label>
-                                <input type="checkbox" disabled data-bind="checked: $data.allow_mult" />
+                                <input type="checkbox" data-bind="checked: editedbucket.allow_mult" />
                                 <span class="lever"></span>
+                                Concurrent updates
                             </label>
                         </div>
-                    </td>
-                    <td>
+                    </div>
+
+                    <div class="input-field col s4">
                         <div class="switch">
                             <label>
-                                <input type="checkbox" disabled data-bind="checked: $data.last_write_wins" />
+                                <input type="checkbox" data-bind="checked: editedbucket.last_write_wins" />
                                 <span class="lever"></span>
+                                Ignore history when writing
                             </label>
                         </div>
-                    </td>
-                    <td>
-                        <div class="chip" data-bind="text: 'R:' + $data.r"></div>
-                        <div class="chip" data-bind="text: 'W:' + $data.w"></div>
-                        <div class="chip" data-bind="text: 'DW:' + $data.dw"></div>
-                        <div class="chip" data-bind="text: 'RW:' + $data.rw"></div>
-                    </td>
-                    <td>
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox" data-bind="checked: $data.show_keys" />
-                                <span class="lever"></span>
-                            </label>
-                        </div>
-                    </td>
-                </tr>
-                <tr data-bind="visible: $data.show_keys">
-                    <td colspan="6">
-                        <item-list params="bucket_type: $data.bucket_type, bucket: $data.name"></item-list>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s3">
+                        <input type="text" data-bind="value: editedbucket.r" id="editedbucket_r" />
+                        <label for="editedbucket_r">R</label>
+                    </div>
+
+                    <div class="input-field col s3">
+                        <input type="text" data-bind="value: editedbucket.w" id="editedbucket_w" />
+                        <label for="editedbucket_w">W</label>
+                    </div>
+
+                    <div class="input-field col s3">
+                        <input type="text" data-bind="value: editedbucket.dw" id="editedbucket_dw" />
+                        <label for="editedbucket_dw">DW</label>
+                    </div>
+
+                    <div class="input-field col s3">
+                        <input type="text" data-bind="value: editedbucket.rw" id="editedbucket_rw" />
+                        <label for="editedbucket_rw">RW</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="pull-right">
+            <button class="btn waves-effect waves-light" data-bind="click: saveEditedBucket">
+                Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
     </div>
 </div>

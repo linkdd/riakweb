@@ -8,7 +8,6 @@ define([
 
         self.app = app;
 
-        console.log(params.bucket_type);
         self.bucket_type = ko.observable(params.bucket_type || 'default');
         self.bucket = ko.observable(params.bucket || 'default');
         self.keys = ko.observableArray([]);
