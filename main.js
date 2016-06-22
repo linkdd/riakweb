@@ -30,7 +30,8 @@ require.config({
                 'jquery',
                 'hammerjs',
                 'css!bower_components/Materialize/dist/css/materialize.min.css',
-                'css!stylesheets/material-icons.css'
+                'css!stylesheets/material-icons.css',
+                'css!bower_components/font-awesome/css/font-awesome.min.css'
             ]
         }
     }

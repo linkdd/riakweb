@@ -58,17 +58,41 @@
                                 <div class="chip" data-bind="text: 'RW:' + $data.rw"></div>
                             </td>
                             <td>
-                                <button class="btn waves-effect waves-light" data-bind="click: $data.editBucket">
-                                    Edit
-                                    <i class="material-icons right">mode_edit</i>
-                                </button>
-
-                                <div class="switch">
-                                    <label>
-                                        <input type="checkbox" data-bind="checked: $data.show_keys" />
-                                        <span class="lever"></span>
-                                        Detail
-                                    </label>
+                                <div class="fixed-action-btn horizontal" style="position: relative; bottom: 10px;">
+                                    <a class="btn-floating btn-large red">
+                                        <i class="large material-icons">settings</i>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a class="btn-floating red">
+                                                <i class="material-icons">delete</i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="btn-floating yellow darken-1"
+                                               data-bind="
+                                                 click: $data.editBucket
+                                               "
+                                            >
+                                                <i class="material-icons">mode_edit</i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="btn-floating green"
+                                               data-bind="
+                                                 click: function() {
+                                                   $data.show_keys(!$data.show_keys());
+                                                 }
+                                               "
+                                            >
+                                                <i class="material-icons"
+                                                   data-bind="
+                                                     text: $data.show_keys() ? 'arrow_drop_up' : 'arrow_drop_down'
+                                                   "
+                                                ></i>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </td>
                         </tr>

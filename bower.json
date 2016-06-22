@@ -26,6 +26,7 @@
     "text": "requirejs-text#~2.0.15",
     "require-css": "~0.1.8",
     "sammy": "~0.7.6",
-    "Materialize": "materialize#~0.97.6"
+    "Materialize": "materialize#~0.97.6",
+    "font-awesome": "~4.6.3"
   }
 }
